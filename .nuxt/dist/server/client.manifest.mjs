@@ -1,0 +1,1 @@
+export { default } from "file:///home/andrew/www/slovo-book/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

@@ -1,0 +1,16 @@
+:root {
+    --ms-tag-bg: #002850;
+}
+
+.multiselect-tag-wrapper {
+    color: #fff;
+}
+
+.multiselect-tag-remove-icon {
+    background-color: rgba(255, 255, 255, .8)!important;
+}
+
+.multiselect.is-active {
+    //box-shadow: none;
+    box-shadow: 0 0 0 1px rgba(0, 40, 80,.6)!important;
+}

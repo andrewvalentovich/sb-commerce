@@ -1,0 +1,35 @@
+@import "@vuepic/vue-datepicker/dist/main.css";
+
+.dp__ {
+    &input {
+        background-color: #fff;
+        color: #111;
+        transition: .2s;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 7%);
+        }
+    }
+    &clear_icon {
+        right: 30px;
+    }
+
+     &input_icon {
+        right: 0!important;
+        transform: translateY(-50%);
+    }
+
+    &select {
+        color: #111;
+    }
+}
+
+.hide__selection_preview {
+    .dp__selection_preview {
+        display: none !important;
+    }
+
+    .dp__action_buttons {
+        width: 100% !important;
+    }
+}

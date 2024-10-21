@@ -1,0 +1,18 @@
+//:root {
+//    --var-svg-grey: #726f7b;
+//    --var-header-text: #726f7b;
+//    --var-lead-grey: rgba(93,90,104,.8);
+//    --var-body-bg: #f8f7fa;
+//    --var-border-input: rgba(93,90,104,.5);
+//}
+
+@import "style";
+@import "libs/vue-datepicker";
+@import "libs/vue-toast-notifications";
+@import "libs/vue-multiselect";
+@import "libs/swiper";
+@import "libs/fancybox";
+
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";

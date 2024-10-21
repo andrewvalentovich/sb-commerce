@@ -1,0 +1,1 @@
+import{J as r,K as s,L as t,M as n}from"./B8mystvN.js";const d=r((a,u)=>{const e=s();if(!e.user.roles||!e.user.roles.find(o=>o.name==="admin"))return t("intended_url").value=a.path,n({name:"profile-me"})});export{d as default};
