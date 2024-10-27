@@ -4,6 +4,9 @@ import { Router } from 'vue-router'
 interface Dialogs {
     dialogAuth: Dialog
     adminUser: Dialog
+    adminCategory: Dialog
+    adminTag: Dialog
+    adminProduct: Dialog
 }
 
 interface Dialog {
@@ -28,7 +31,22 @@ export const useDialog = defineStore('dialog', {
                 active: false,
                 opened: 0,
                 closed: 0,
-            }
+            },
+            adminCategory: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
+            adminTag: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
+            adminProduct: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
         }
     }),
 
@@ -120,12 +138,9 @@ export const useDialogAuth = defineStore('dialogAuth', {
             // this.setActive('login', false)
             this.deactivateAll()
             this.setActive('recovery', true)
-            console.log('recovery')
-            console.log(this.active)
         },
 
         deactivateAll() {
-            console.log('deactivateAll')
             Object.keys(this.active).forEach((key) => {
                 this.active[key] = false
             })

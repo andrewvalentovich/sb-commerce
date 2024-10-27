@@ -20,7 +20,14 @@
     }
 
     &select {
-        color: #111;
+        color: rgba(0, 122, 255, 1);
+        line-height: 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    &cancel {
+        line-height: 1.25rem;
+        font-size: 0.875rem;
     }
 }
 
@@ -32,4 +39,9 @@
     .dp__action_buttons {
         width: 100% !important;
     }
+}
+
+.dp__clear_icon {
+    padding: 6px!important;
+    right: 10px!important;
 }

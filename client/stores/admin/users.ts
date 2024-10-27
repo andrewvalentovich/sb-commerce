@@ -1,5 +1,4 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { paramsToString, parseFilterParams } from "../../utils/filter";
 
 export const useAdminUsers = defineStore('adminUsers', {
     state: () => ({
@@ -57,12 +56,13 @@ export const useAdminUsers = defineStore('adminUsers', {
                 })
 
                 if (error.value) {
+                    this.loading = false
                     // @ts-ignore
                     throw new Error(error.value)
                 }
 
-                this.laravelData = data?.value?.data;
-                this.items = data?.value?.data?.data;
+                this.laravelData = data?.value?.data
+                this.items = data?.value?.data?.data
                 this.meta = data?.value?.data?.meta
             } catch (e) {
                 console.log(e)
@@ -96,11 +96,13 @@ export const useAdminUsers = defineStore('adminUsers', {
                     throw new Error(error.value)
                 }
 
-                const { $toast } = useNuxtApp()
-                $toast.success('Данные о пользователе успешно обновлены')
+                if (data.value && data.value.success) {
+                    const { $toast } = useNuxtApp()
+                    $toast.success(data.value.message)
 
-                this.loading = false
-                return data.value
+                    this.loading = false
+                    return data.value
+                }
             } catch (e) {
                 console.log(e)
             }
@@ -124,11 +126,13 @@ export const useAdminUsers = defineStore('adminUsers', {
                     throw new Error(error.value)
                 }
 
-                const { $toast } = useNuxtApp()
-                $toast.success('Создан новый пользователь')
+                if (data.value && data.value.success) {
+                    const { $toast } = useNuxtApp()
+                    $toast.success(data.value.message)
 
-                this.loading = false
-                return data.value
+                    this.loading = false
+                    return data.value
+                }
             } catch (e) {
                 console.log(e)
             }

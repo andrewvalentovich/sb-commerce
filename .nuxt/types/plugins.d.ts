@@ -17,12 +17,6 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/check-if-page-unused.js").default> &
   InjectionType<typeof import("../../node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.server.js").default> &
   InjectionType<typeof import("../../node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.client.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/slideovers.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/modals.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/colors.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxtjs/color-mode/dist/runtime/plugin.server.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxtjs/color-mode/dist/runtime/plugin.client.js").default> &
-  InjectionType<typeof import("../../node_modules/@nuxt/icon/dist/runtime/plugin.js").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/dev-server-logs.js").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/check-if-layout-used.js").default> &
   InjectionType<typeof import("../../client/plugins/authPlugin").default> &
@@ -33,7 +27,7 @@ declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }
 
   interface NuxtAppLiterals {
-    pluginName: 'nuxt:head' | 'nuxt:router' | 'nuxt:chunk-reload' | 'pinia' | 'nuxt:global-components' | 'nuxt:prefetch' | 'nuxt:checkIfPageUnused' | '@nuxt/icon' | 'nuxt:checkIfLayoutUsed'
+    pluginName: 'nuxt:head' | 'nuxt:router' | 'nuxt:chunk-reload' | 'pinia' | 'nuxt:global-components' | 'nuxt:prefetch' | 'nuxt:checkIfPageUnused' | 'nuxt:checkIfLayoutUsed'
   }
 }
 

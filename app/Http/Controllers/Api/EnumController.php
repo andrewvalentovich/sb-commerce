@@ -12,6 +12,7 @@ class EnumController extends ApiController
 {
     public function userRoles()
     {
+        \Log::info('enumController userRoles', [Auth::user()->hasRole('admin')]);
         $roles = Auth::user()->hasRole('admin') ? Role::all() : Role::where('name', '!=', 'admin')->get();
 
         return $this->sendResponse(RoleResource::collection($roles));

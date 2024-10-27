@@ -7,14 +7,14 @@
             <form v-if="checkIteration('success', true)" class="mt-8 space-y-6" @submit.prevent="submit">
                 <div v-if="checkIteration('login')">
                     <label for="login" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите email или номер телефона вашей учётной записи</label>
-                    <input v-model="form.login" type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="name@company.com">
+                    <input v-model="form.login" type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com">
                 </div>
                 <div v-if="checkIteration('code')">
                     <div class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
                         На вашу почту <strong v-if="form.maskEmail">{{ form.maskEmail }}</strong> был отправлен код для восстановления пароля, пожалуйста введите полученный код в поле ниже
                     </div>
                     <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Код для восстановления</label>
-                    <input v-model="form.code" type="text" name="code" id="code" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="12345">
+                    <input v-model="form.code" type="text" name="code" id="code" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345">
                 </div>
                 <div v-if="checkIteration('password')" class="space-y-6">
                     <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -22,11 +22,11 @@
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Новый пароль</label>
-                        <input v-model="form.password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <input v-model="form.password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
                     <div>
                         <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Повторите новый пароль</label>
-                        <input v-model="form.password_confirmation" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <input v-model="form.password_confirmation" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
                 </div>
 
@@ -35,11 +35,11 @@
                 </uiButtonPrimary>
 
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Уже есть аккаунт? <button @click="dialogAuth.activateLogin()" class="text-primary-700 hover:underline dark:text-primary-500">Войти</button>
+                    Уже есть аккаунт? <button @click="dialogAuth.activateLogin()" class="text-blue-700 hover:underline dark:text-blue-500">Войти</button>
                 </div>
             </form>
             <p v-else class="mt-4">
-                Вы успешно обновили пароль. Теперь можете <button @click="dialogAuth.activateLogin()" class="text-primary-700 hover:underline dark:text-primary-500">войти в учётную запись</button>, используя обновлённые данные
+                Вы успешно обновили пароль. Теперь можете <button @click="dialogAuth.activateLogin()" class="text-blue-700 hover:underline dark:text-blue-500">войти в учётную запись</button>, используя обновлённые данные
             </p>
         </template>
         <template v-if="checkIteration('success')" #footer>

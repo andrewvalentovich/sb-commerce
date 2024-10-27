@@ -1,9 +1,17 @@
 :root {
-    --ms-tag-bg: #002850;
+    --ms-tag-bg: rgba(0, 122, 255, 1);
+    --ms-option-font-size: 0.875rem;
+    --ms-line-height: 1.25rem;
+    --ms-font-size: 0.875rem;
 }
 
 .multiselect-tag-wrapper {
     color: #fff;
+}
+
+.multiselect {
+    min-height: 42px!important;
+    border-radius: 0.5rem!important;
 }
 
 .multiselect-tag-remove-icon {
@@ -11,6 +19,9 @@
 }
 
 .multiselect.is-active {
-    //box-shadow: none;
-    box-shadow: 0 0 0 1px rgba(0, 40, 80,.6)!important;
+    box-shadow: 0 0 0 2px rgba(0, 122, 255, 1)!important;
+}
+
+.multiselect-no-results {
+    font-size: var(--ms-option-font-size, 1rem);
 }

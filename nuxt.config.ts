@@ -1,5 +1,4 @@
 import {defineNuxtConfig} from 'nuxt/config'
-const isDev = process.env.NODE_ENV === 'development'
 
 export default defineNuxtConfig({
   srcDir: 'client/',
@@ -29,11 +28,10 @@ export default defineNuxtConfig({
       }
   },
 
-  buildModules: [
-      '@nuxtjs/tailwindcss',
-  ],
+  buildModules: [],
 
   modules: [
+      '@nuxtjs/tailwindcss',
       [
           '@pinia/nuxt',
           {
@@ -44,8 +42,7 @@ export default defineNuxtConfig({
                   ['defineStore', 'definePiniaStore'] // import { defineStore as definePiniaStore } from 'pinia'
               ]
           }
-      ],
-      '@nuxt/ui'
+      ]
   ],
 
   nitro: {
@@ -68,6 +65,7 @@ export default defineNuxtConfig({
   },
 
   css: [
+      '@/assets/css/tailwind.css',
       '@/assets/css/app.scss',
   ],
 

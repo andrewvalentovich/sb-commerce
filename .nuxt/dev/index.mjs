@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { mkdirSync } from 'node:fs';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, fetchWithEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, createError, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, getQuery as getQuery$1, getRequestURL, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, readBody, getResponseStatusText } from 'file:///home/andrew/www/slovo-book/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, fetchWithEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, createError, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file:///home/andrew/www/slovo-book/node_modules/h3/dist/index.mjs';
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///home/andrew/www/slovo-book/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import devalue from 'file:///home/andrew/www/slovo-book/node_modules/@nuxt/devalue/dist/devalue.mjs';
 import destr from 'file:///home/andrew/www/slovo-book/node_modules/destr/dist/index.mjs';
@@ -26,9 +26,6 @@ import { stringify } from 'file:///home/andrew/www/slovo-book/node_modules/deval
 import { getContext } from 'file:///home/andrew/www/slovo-book/node_modules/unctx/dist/index.mjs';
 import { captureRawStackTrace, parseRawStackTrace } from 'file:///home/andrew/www/slovo-book/node_modules/errx/dist/index.js';
 import { isVNode, version, unref } from 'file:///home/andrew/www/slovo-book/node_modules/vue/index.mjs';
-import { basename } from 'file:///home/andrew/www/slovo-book/node_modules/pathe/dist/index.mjs';
-import { getIcons } from 'file:///home/andrew/www/slovo-book/node_modules/@iconify/utils/lib/index.mjs';
-import { collections } from 'file:///home/andrew/www/slovo-book/.nuxt/nuxt-icon-server-bundle.mjs';
 import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/andrew/www/slovo-book/node_modules/unhead/dist/index.mjs';
 import { defineHeadPlugin } from 'file:///home/andrew/www/slovo-book/node_modules/@unhead/shared/dist/index.mjs';
 
@@ -73,226 +70,7 @@ function _expandFromEnv(value) {
 }
 
 const inlineAppConfig = {
-  "nuxt": {},
-  "icon": {
-    "provider": "server",
-    "class": "",
-    "aliases": {},
-    "iconifyApiEndpoint": "https://api.iconify.design",
-    "localApiEndpoint": "/api/_nuxt_icon",
-    "fallbackToApi": true,
-    "cssSelectorPrefix": "i-",
-    "cssWherePseudo": true,
-    "mode": "css",
-    "attrs": {
-      "aria-hidden": true
-    },
-    "collections": [
-      "academicons",
-      "akar-icons",
-      "ant-design",
-      "arcticons",
-      "basil",
-      "bi",
-      "bitcoin-icons",
-      "bpmn",
-      "brandico",
-      "bx",
-      "bxl",
-      "bxs",
-      "bytesize",
-      "carbon",
-      "catppuccin",
-      "cbi",
-      "charm",
-      "ci",
-      "cib",
-      "cif",
-      "cil",
-      "circle-flags",
-      "circum",
-      "clarity",
-      "codicon",
-      "covid",
-      "cryptocurrency",
-      "cryptocurrency-color",
-      "dashicons",
-      "devicon",
-      "devicon-plain",
-      "ei",
-      "el",
-      "emojione",
-      "emojione-monotone",
-      "emojione-v1",
-      "entypo",
-      "entypo-social",
-      "eos-icons",
-      "ep",
-      "et",
-      "eva",
-      "f7",
-      "fa",
-      "fa-brands",
-      "fa-regular",
-      "fa-solid",
-      "fa6-brands",
-      "fa6-regular",
-      "fa6-solid",
-      "fad",
-      "fe",
-      "feather",
-      "file-icons",
-      "flag",
-      "flagpack",
-      "flat-color-icons",
-      "flat-ui",
-      "flowbite",
-      "fluent",
-      "fluent-emoji",
-      "fluent-emoji-flat",
-      "fluent-emoji-high-contrast",
-      "fluent-mdl2",
-      "fontelico",
-      "fontisto",
-      "formkit",
-      "foundation",
-      "fxemoji",
-      "gala",
-      "game-icons",
-      "geo",
-      "gg",
-      "gis",
-      "gravity-ui",
-      "gridicons",
-      "grommet-icons",
-      "guidance",
-      "healthicons",
-      "heroicons",
-      "heroicons-outline",
-      "heroicons-solid",
-      "hugeicons",
-      "humbleicons",
-      "ic",
-      "icomoon-free",
-      "icon-park",
-      "icon-park-outline",
-      "icon-park-solid",
-      "icon-park-twotone",
-      "iconamoon",
-      "iconoir",
-      "icons8",
-      "il",
-      "ion",
-      "iwwa",
-      "jam",
-      "la",
-      "lets-icons",
-      "line-md",
-      "logos",
-      "ls",
-      "lucide",
-      "lucide-lab",
-      "mage",
-      "majesticons",
-      "maki",
-      "map",
-      "marketeq",
-      "material-symbols",
-      "material-symbols-light",
-      "mdi",
-      "mdi-light",
-      "medical-icon",
-      "memory",
-      "meteocons",
-      "mi",
-      "mingcute",
-      "mono-icons",
-      "mynaui",
-      "nimbus",
-      "nonicons",
-      "noto",
-      "noto-v1",
-      "octicon",
-      "oi",
-      "ooui",
-      "openmoji",
-      "oui",
-      "pajamas",
-      "pepicons",
-      "pepicons-pencil",
-      "pepicons-pop",
-      "pepicons-print",
-      "ph",
-      "pixelarticons",
-      "prime",
-      "ps",
-      "quill",
-      "radix-icons",
-      "raphael",
-      "ri",
-      "rivet-icons",
-      "si-glyph",
-      "simple-icons",
-      "simple-line-icons",
-      "skill-icons",
-      "solar",
-      "streamline",
-      "streamline-emojis",
-      "subway",
-      "svg-spinners",
-      "system-uicons",
-      "tabler",
-      "tdesign",
-      "teenyicons",
-      "token",
-      "token-branded",
-      "topcoat",
-      "twemoji",
-      "typcn",
-      "uil",
-      "uim",
-      "uis",
-      "uit",
-      "uiw",
-      "unjs",
-      "vaadin",
-      "vs",
-      "vscode-icons",
-      "websymbol",
-      "weui",
-      "whh",
-      "wi",
-      "wpf",
-      "zmdi",
-      "zondicons"
-    ],
-    "fetchTimeout": 500
-  },
-  "ui": {
-    "primary": "green",
-    "gray": "cool",
-    "colors": [
-      "red",
-      "orange",
-      "amber",
-      "yellow",
-      "lime",
-      "green",
-      "emerald",
-      "teal",
-      "cyan",
-      "sky",
-      "blue",
-      "indigo",
-      "violet",
-      "purple",
-      "fuchsia",
-      "pink",
-      "rose",
-      "primary"
-    ],
-    "strategy": "merge"
-  }
+  "nuxt": {}
 };
 
 
@@ -333,9 +111,6 @@ const _inlineRuntimeConfig = {
   "public": {
     "webURL": "http://localhost:8000",
     "apiURL": "http://localhost:8000"
-  },
-  "icon": {
-    "serverKnownCssClasses": []
   }
 };
 const envOptions = {
@@ -358,12 +133,7 @@ function useRuntimeConfig(event) {
   event.context.nitro.runtimeConfig = runtimeConfig;
   return runtimeConfig;
 }
-const _sharedAppConfig = _deepFreeze(klona(appConfig));
-function useAppConfig(event) {
-  {
-    return _sharedAppConfig;
-  }
-}
+_deepFreeze(klona(appConfig));
 function _deepFreeze(object) {
   const propNames = Object.getOwnPropertyNames(object);
   for (const name of propNames) {
@@ -842,7 +612,7 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-const script$1 = `
+const script = `
 if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
   Object.defineProperty(window, '__NUXT_DEVTOOLS_TIME_METRIC__', {
     value: {},
@@ -855,7 +625,7 @@ window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 
 const _LW6XQc8EtA = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
-    htmlContext.head.push(`<script>${script$1}<\/script>`);
+    htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
@@ -947,18 +717,9 @@ function onConsoleLog(callback) {
   consola.wrapConsole();
 }
 
-const script = "\"use strict\";(()=>{const t=window,e=document.documentElement,c=[\"dark\",\"light\"],n=getStorageValue(\"localStorage\",\"nuxt-color-mode\")||\"system\";let i=n===\"system\"?u():n;const r=e.getAttribute(\"data-color-mode-forced\");r&&(i=r),l(i),t[\"__NUXT_COLOR_MODE__\"]={preference:n,value:i,getColorScheme:u,addColorScheme:l,removeColorScheme:d};function l(o){const s=\"\"+o+\"\",a=\"\";e.classList?e.classList.add(s):e.className+=\" \"+s,a&&e.setAttribute(\"data-\"+a,o)}function d(o){const s=\"\"+o+\"\",a=\"\";e.classList?e.classList.remove(s):e.className=e.className.replace(new RegExp(s,\"g\"),\"\"),a&&e.removeAttribute(\"data-\"+a)}function f(o){return t.matchMedia(\"(prefers-color-scheme\"+o+\")\")}function u(){if(t.matchMedia&&f(\"\").media!==\"not all\"){for(const o of c)if(f(\":\"+o).matches)return o}return\"light\"}})();function getStorageValue(t,e){switch(t){case\"localStorage\":return window.localStorage.getItem(e);case\"sessionStorage\":return window.sessionStorage.getItem(e);case\"cookie\":return getCookie(e);default:return null}}function getCookie(t){const c=(\"; \"+window.document.cookie).split(\"; \"+t+\"=\");if(c.length===2)return c.pop()?.split(\";\").shift()}";
-
-const _EPT9X72boQ = (function(nitro) {
-  nitro.hooks.hook("render:html", (htmlContext) => {
-    htmlContext.head.push(`<script>${script}<\/script>`);
-  });
-});
-
 const plugins = [
   _LW6XQc8EtA,
-_cJzZlKvs21,
-_EPT9X72boQ
+_cJzZlKvs21
 ];
 
 const scheduledTasks = false;
@@ -1089,83 +850,10 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
-function buildAssetsDir() {
-  return useRuntimeConfig().app.buildAssetsDir;
-}
-function buildAssetsURL(...path) {
-  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
-}
-function publicAssetsURL(...path) {
-  const app = useRuntimeConfig().app;
-  const publicBase = app.cdnURL || app.baseURL;
-  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
-}
-
-const warnOnceSet = /* @__PURE__ */ new Set();
-const DEFAULT_ENDPOINT = "https://api.iconify.design";
-const _cUqHPt = defineCachedEventHandler(async (event) => {
-  const url = getRequestURL(event);
-  if (!url)
-    return createError({ status: 400, message: "Invalid icon request" });
-  const options = useAppConfig().icon;
-  const collectionName = event.context.params?.collection?.replace(/\.json$/, "");
-  const collection = collectionName ? await collections[collectionName]?.() : null;
-  const apiEndPoint = options.iconifyApiEndpoint || DEFAULT_ENDPOINT;
-  const icons = url.searchParams.get("icons")?.split(",");
-  if (collection) {
-    if (icons?.length) {
-      const data = getIcons(
-        collection,
-        icons
-      );
-      consola.debug(`[Icon] serving ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from bundled collection`);
-      return data;
-    }
-  } else {
-    if (collectionName && !warnOnceSet.has(collectionName) && apiEndPoint === DEFAULT_ENDPOINT) {
-      consola.warn([
-        `[Icon] Collection \`${collectionName}\` is not found locally`,
-        `We suggest to install it via \`npm i -D @iconify-json/${collectionName}\` to provide the best end-user experience.`
-      ].join("\n"));
-      warnOnceSet.add(collectionName);
-    }
-  }
-  if (options.fallbackToApi === true || options.fallbackToApi === "server-only") {
-    const apiUrl = new URL("./" + basename(url.pathname) + url.search, apiEndPoint);
-    consola.debug(`[Icon] fetching ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from iconify api`);
-    if (apiUrl.host !== new URL(apiEndPoint).host) {
-      return createError({ status: 400, message: "Invalid icon request" });
-    }
-    try {
-      const data = await $fetch(apiUrl.href);
-      return data;
-    } catch (e) {
-      console.error(e);
-      if (e.status === 404)
-        return createError({ status: 404 });
-      else
-        return createError({ status: 500, message: "Failed to fetch fallback icon" });
-    }
-  }
-  return createError({ status: 404 });
-}, {
-  group: "nuxt",
-  name: "icon",
-  getKey(event) {
-    const collection = event.context.params?.collection?.replace(/\.json$/, "") || "unknown";
-    const icons = String(getQuery$1(event).icons || "").split(",");
-    return `${collection}_${icons.join("_")}`;
-  },
-  swr: true,
-  maxAge: 60 * 60 * 24 * 7
-  // 1 week
-});
-
 const _lazy_kvlOvQ = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '/__nuxt_error', handler: _lazy_kvlOvQ, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_nuxt_icon/:collection', handler: _cUqHPt, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_kvlOvQ, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -1423,6 +1111,18 @@ function createServerHead(options = {}) {
 const unheadPlugins = true ? [CapoPlugin({ track: true })] : [];
 
 const renderSSRHeadOptions = {"omitLineBreaks":false};
+
+function buildAssetsDir() {
+  return useRuntimeConfig().app.buildAssetsDir;
+}
+function buildAssetsURL(...path) {
+  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
+}
+function publicAssetsURL(...path) {
+  const app = useRuntimeConfig().app;
+  const publicBase = app.cdnURL || app.baseURL;
+  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
+}
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;

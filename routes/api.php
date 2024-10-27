@@ -2,14 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\EnumController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-//Route::get('/user', function (Request $request) {
-//    return $request->user();
-//})->middleware('auth:sanctum');
-
 
 Route::group([
     'prefix' => 'v1/auth',
@@ -25,23 +18,54 @@ Route::group([
     // Recovery Routes...
     Route::post('recovery', [\App\Http\Controllers\Api\Auth\RecoveryController::class, 'recovery']);
 
-    // Password Reset Routes...
-//    Route::post('password/email', [\App\Http\Controllers\Api\Auth\ForgotPasswordController::class, 'sendResetLinkEmail']);
-//    Route::post('password/reset', [\App\Http\Controllers\Api\Auth\ResetPasswordController::class, 'reset']);
-
+    // Me Routes...
     Route::get('me', [UserController::class, 'me'])->middleware('auth:sanctum');
 });
 
 Route::group([
     'prefix' => 'v1/admin',
     'as' => 'admin.',
-    'middleware' => 'auth:sanctum'
+    'middleware' => ['auth:sanctum', 'role.check.manager']
 ], function () {
-    // Authentication Routes...
+    // Users resource routes...
     Route::apiResource('users', \App\Http\Controllers\Api\Admin\UsersController::class)
         ->only(['index', 'store', 'update', 'destroy'])
-        ->whereNumber('user')
-        ->middleware('role.check.manager');
+        ->whereNumber('user');
+
+    // Categories resource routes...
+    Route::apiResource('categories', \App\Http\Controllers\Api\Admin\CategoriesController::class)
+        ->only(['index', 'store', 'update', 'destroy'])
+        ->whereNumber('category');
+    Route::put('categories/change_order', [\App\Http\Controllers\Api\Admin\CategoriesController::class, 'changeOrder']);
+    Route::put('categories/sort', [\App\Http\Controllers\Api\Admin\CategoriesController::class, 'sort']);
+    Route::get('categories/list', [\App\Http\Controllers\Api\Admin\CategoriesController::class, 'list']);
+    Route::get('categories/tree', [\App\Http\Controllers\Api\Admin\CategoriesController::class, 'tree']);
+
+    // Tags resource routes...
+    Route::apiResource('tags', \App\Http\Controllers\Api\Admin\TagsController::class)
+        ->only(['index', 'store', 'update', 'destroy'])
+        ->whereNumber('tag');
+    Route::get('tags/list', [\App\Http\Controllers\Api\Admin\TagsController::class, 'list']);
+
+    // Tags resource routes...
+    Route::apiResource('products', \App\Http\Controllers\Api\Admin\ProductsController::class)
+        ->only(['index', 'store', 'update', 'destroy'])
+        ->whereNumber('product');
+
+    // Media resource routes...
+    Route::apiResource('model.id.media', \App\Http\Controllers\Api\Admin\MediaController::class, ['parameters' => [
+        'model' => 'model',
+        'id' => 'id',
+        'media' => 'media'
+    ],
+    ])->only([
+//        'index',
+        'store',
+        'destroy'
+    ])
+        ->whereIn('model', ['product', 'category'])
+        ->whereNumber('id');
+    Route::put('model/{model}/id/{id}/media/change_order', [\App\Http\Controllers\Api\Admin\MediaController::class, 'changeOrder']);
 });
 
 Route::group([

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Filter } from "../../utils/filter";
+import { Filter } from "~/utils/filter";
 
 definePageMeta({
     name: "admin-panel-users",
@@ -81,6 +81,11 @@ function showModal(item?: models.User) {
     dialog.open('adminUser')
     editModal.item = item || null
 }
+
+onBeforeUnmount(() => {
+    enumStore.userRoles = []
+    enumStore.userStatuses = []
+})
 </script>
 <template>
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
@@ -99,8 +104,8 @@ function showModal(item?: models.User) {
                                 type="text"
                                 name="email"
                                 id="users-search"
-                                :class="[adminUserStore.filterParams.search ? 'border-2 border-primary-400' : '']"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                :class="[adminUserStore.filterParams.search ? 'border-2 border-blue-400' : '']"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Поиск пользователей (ФИО, номер телефона, email)"
                             >
                         </div>
@@ -110,7 +115,7 @@ function showModal(item?: models.User) {
                             <div class="flex items-center">
                                 <Dropdown :closeContentOnClick="false">
                                     <template #trigger>
-                                        <button :class="[adminUserStore.filterParams.roles.length ? 'border-2 border-primary-400' : '']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                        <button :class="[adminUserStore.filterParams.roles.length ? 'border-2 border-blue-400' : '']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                                             Фильтр по ролям
                                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -121,19 +126,19 @@ function showModal(item?: models.User) {
                                         <!-- Dropdown menu -->
                                         <ul class="space-y-2 px-3 pt-3 text-sm" aria-labelledby="dropdownDefault">
                                             <li v-for="role in enumStore.userRoles" class="flex items-center">
-                                                <input @click="userFilter.toggleProperty('roles', role.name)" v-model="adminUserStore.filterParams.roles" :id="role.name" type="checkbox" :value="role.name" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="userFilter.toggleProperty('roles', role.name)" v-model="adminUserStore.filterParams.roles" :id="role.name" type="checkbox" :value="role.name" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="role.name" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ role.display_name }}
                                                 </label>
                                             </li>
                                         </ul>
-                                        <button @click="userFilter.setProperty('roles', [])" class="px-1 py-2 ml-2 text-sm text-primary-700 hover:text-primary-500 font-medium">Очистить</button>
+                                        <button @click="userFilter.setProperty('roles', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
                                     </template>
                                 </Dropdown>
                                 <Dropdown :closeContentOnClick="false">
                                     <template #trigger>
-                                        <button :class="[adminUserStore.filterParams.statuses.length ? 'border-2 border-primary-400' : '']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                        <button :class="[adminUserStore.filterParams.statuses.length ? 'border-2 border-blue-400' : '']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                                             Фильтр по статусу
                                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -144,19 +149,19 @@ function showModal(item?: models.User) {
                                         <!-- Dropdown menu -->
                                         <ul class="space-y-2 px-3 pt-3 text-sm" aria-labelledby="dropdownDefault">
                                             <li v-for="status in enumStore.userStatuses" class="flex items-center">
-                                                <input @click="userFilter.toggleProperty('statuses', status.name)" v-model="adminUserStore.filterParams.statuses" :id="status.value" type="checkbox" :value="status.name" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="userFilter.toggleProperty('statuses', status.name)" v-model="adminUserStore.filterParams.statuses" :id="status.value" type="checkbox" :value="status.name" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="status.value" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ status.label }}
                                                 </label>
                                             </li>
                                         </ul>
-                                        <button @click="userFilter.setProperty('statuses', [])" class="px-1 py-2 ml-2 text-sm text-primary-700 hover:text-primary-500 font-medium">Очистить</button>
+                                        <button @click="userFilter.setProperty('statuses', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
                                     </template>
                                 </Dropdown>
                                 <Dropdown>
                                     <template #trigger>
-                                        <button :class="[adminUserStore.filterParams.sort == '' ? '' : 'border-2 border-primary-400']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                        <button :class="[adminUserStore.filterParams.sort == '' ? '' : 'border-2 border-blue-400']" class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                                             Сортировка
                                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -167,14 +172,14 @@ function showModal(item?: models.User) {
                                         <!-- Dropdown menu -->
                                         <ul class="space-y-2 px-3 pt-3 text-sm" aria-labelledby="dropdownDefault">
                                             <li class="flex items-center">
-                                                <input @click="userFilter.setProperty('sort', '')" v-model="adminUserStore.filterParams.sort" id="no-sort" type="radio" :value="''" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="userFilter.setProperty('sort', '')" v-model="adminUserStore.filterParams.sort" id="no-sort" type="radio" :value="''" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label for="no-sort" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     Нет сортировки
                                                 </label>
                                             </li>
                                             <li v-for="sort in adminUserStore.sortParams" class="flex items-center">
-                                                <input @click="userFilter.setProperty('sort', sort.value)" v-model="adminUserStore.filterParams.sort" :id="sort.value" type="radio" :value="sort.value" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="userFilter.setProperty('sort', sort.value)" v-model="adminUserStore.filterParams.sort" :id="sort.value" type="radio" :value="sort.value" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="sort.value" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ sort.name }}
@@ -187,13 +192,13 @@ function showModal(item?: models.User) {
                         </div>
                     </div>
                 </div>
-                <ui-button-primary
+                <uiButtonPrimary
                     :disabled="adminUserStore.loading && enumStore.loading"
                     @click="showModal()"
                 >
                     <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                     Добавить пользователя
-                </ui-button-primary>
+                </uiButtonPrimary>
             </div>
         </div>
     </div>
@@ -231,7 +236,6 @@ function showModal(item?: models.User) {
                             <tr v-for="user in adminUserStore.items" class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <td class="p-4 text-base text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ user.id }}</td>
                                 <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-<!--                                    <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/neil-sims.png" alt="Neil Sims avatar">-->
                                     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
                                         <div class="text-base font-semibold text-gray-900 dark:text-white">{{ user.name }}</div>
                                         <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ user.email }}</div>
@@ -242,13 +246,13 @@ function showModal(item?: models.User) {
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ user.role ?? '-' }}</td>
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ user.status_label }}</td>
                                 <td class="p-4 space-x-2 whitespace-nowrap">
-                                    <ui-button-primary
+                                    <uiButtonPrimary
                                         :disabled="adminUserStore.loading && enumStore.loading"
                                         @click="showModal(user)"
                                     >
                                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                         Редактировать
-                                    </ui-button-primary>
+                                    </uiButtonPrimary>
                                     <ui-button-danger
                                         v-if="auth.checkAdmin"
                                         :disabled="adminUserStore.loading && enumStore.loading"
@@ -275,5 +279,5 @@ function showModal(item?: models.User) {
         />
     </div>
 
-   <dialogsAdminUsers v-model="editModal" @fetchPageData="adminUserStore.get(userFilter.getCloneFilterParams())"/>
+   <dialogsAdminUser v-model="editModal" @fetchPageData="adminUserStore.get(userFilter.getCloneFilterParams())"/>
 </template>
