@@ -21,6 +21,19 @@ class ProductRepository extends CoreRepository
         return $query->paginate($this->numItemsPerPage($filterParams['per_page'] ?? $query->count()));
     }
 
+    public function getForCart(array|null $productIds)
+    {
+        return $productIds
+            ? $this->startConditions()->whereIn('id', $productIds)->with(['category', 'tags', 'media'])->get()
+            : []
+        ;
+    }
+
+    public function getSimple(string|int $param)
+    {
+        return $this->startConditions()->where(is_numeric($param) ? 'id' : 'slug', $param)->with(['category', 'tags', 'media'])->first();
+    }
+
     public function list()
     {
         $data = $this->startConditions()

@@ -110,7 +110,8 @@ const _inlineRuntimeConfig = {
   },
   "public": {
     "webURL": "http://localhost:8000",
-    "apiURL": "http://localhost:8000"
+    "apiURL": "http://localhost:8000",
+    "piniaPluginPersistedstate": {}
   }
 };
 const envOptions = {

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\CRUD\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends ApiController
 {
@@ -36,8 +37,8 @@ class UsersController extends ApiController
 
     public function update(UpdateRequest $request, User $user)
     {
-        if ($user->hasRole('admin')) {
-            $request->middleware('role.check.admin');
+        if ($user->hasRole('admin') && !Auth::user()->hasRole('admin')) {
+            return $this->sendError('Вы не можете редактировать администратора');
         }
 
         $data = $request->validated();

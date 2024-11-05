@@ -10,7 +10,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:65535'],
-            'parent_id' => ['nullable', 'numeric', 'max:9999999999'],
+            'parent_id' => ['nullable', 'numeric', 'exist:categories,id'],
 
             'media' => 'sometimes|array|min:0',
             'media.*' => ['file', 'mimes:pdf,jpg,jpeg,png,webp,mp4', 'max:'.(1024 * 10)],

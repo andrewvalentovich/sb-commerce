@@ -135,8 +135,17 @@ async function removeLocal() {
     <div>
         <p v-show="mediaStore.loading || categoryStore.loading">Загрузка...</p>
         <div v-if="mediaData?.length" class="grid grid-flow-row grid-cols-3 gap-2 mb-4">
-            <div class="w-full relative pt-[60%]" v-for="media in mediaData">
-                <img class="absolute w-[100%] h-[100%] top-0 left-0 right-0 bottom-0 object-cover" :src="media.url" alt="preview">
+            <div class="w-full relative pt-[80%]" v-for="media in mediaData">
+                <video
+                    v-if="media.mime_type === 'video/mp4'"
+                    class="absolute w-[100%] h-[100%] top-0 left-0 right-0 bottom-0 object-contain"
+                    controls
+                    muted
+                    loop
+                    :src="media.url"
+                    :poster="media.thumb_url"
+                ></video>
+                <img v-else class="absolute w-[100%] h-[100%] top-0 left-0 right-0 bottom-0 object-contain" :src="media.url" alt="preview">
                 <div
                     v-show="!mediaStore.loading && !categoryStore.loading"
                     class="absolute flex justify-center items-center w-4 h-4 top-1 right-1 bg-red-600 text-white rounded-full text-xs leading-3 cursor-pointer"

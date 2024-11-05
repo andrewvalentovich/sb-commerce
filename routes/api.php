@@ -75,3 +75,19 @@ Route::group([
     Route::get('user_roles', [EnumController::class, 'userRoles'])->middleware('auth:sanctum');
     Route::get('user_statuses', [EnumController::class, 'userStatuses']);
 });
+
+Route::group([
+    'prefix' => 'v1'
+], function () {
+    // Categories resource routes...
+    Route::get('categories/list', [\App\Http\Controllers\Api\CategoriesController::class, 'list']);
+    Route::get('categories/tree', [\App\Http\Controllers\Api\CategoriesController::class, 'tree']);
+
+    // Tags resource routes...
+    Route::get('tags/list', [\App\Http\Controllers\Api\TagsController::class, 'list']);
+
+    // Tags resource routes...
+    Route::get('products', [\App\Http\Controllers\Api\ProductsController::class, 'index']);
+    Route::get('products/cart', [\App\Http\Controllers\Api\ProductsController::class, 'cart']);
+    Route::get('products/{param}', [\App\Http\Controllers\Api\ProductsController::class, 'show']);
+});

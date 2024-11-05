@@ -1,13 +1,15 @@
-export class Filter {
-    private filter: any = {};
+import _ from 'lodash';
 
-    constructor(private store: object, private filterName: string) {
-        this.filter = this.store[this.filterName]
+export class Filter {
+    private filter = ref<object>(null);
+
+    constructor(filter: object) {
+        this.filter = filter
     }
 
     public getCloneFilterParams(): object
     {
-        return this.parseFilterParams(JSON.parse(JSON.stringify(this.filter)))
+        return this.parseFilterParams(_.cloneDeep(this.filter))
     }
 
     public updateUrlQuery(filterParams: object, routeName: string, routeParams: object = {}): void
@@ -17,22 +19,28 @@ export class Filter {
         useRouter().replace({ name: routeName, params: routeParams, query: query })
     }
 
-    public parseFilterParams(obj: object): object
+    public parseFilterParams(filter: object): object
     {
         let params = {};
 
-        for (const key in obj) {
-            if (obj[key] instanceof Array) {
-                let arr = [];
+        for (const key in filter) {
+            if (typeof filter[key] === 'object') {
+                if (filter[key] instanceof Array) {
+                    let arr = [];
 
-                for (const index in obj[key]) {
-                    arr.push(obj[key][index])
+                    for (const index in filter[key]) {
+                        arr.push(filter[key][index])
+                    }
+
+                    params[`${key}[]`] = arr
+                } else {
+                    for (const index in filter[key]) {
+                        if (filter[key][index]) params[`${key}[${index}]`] = filter[key][index]
+                    }
                 }
-
-                params[`${key}[]`] = arr
             } else {
-                if (obj[key] != null && obj[key] != undefined && obj[key] != '') {
-                    params[key] = obj[key]
+                if (filter[key] != null && filter[key] != undefined && filter[key] != '') {
+                    params[key] = filter[key]
                 }
             }
         }
@@ -86,10 +94,5 @@ export class Filter {
     public compareProperty(propertyName: string, value: string): boolean
     {
         return this.filter.hasOwnProperty(propertyName) ? this.filter[propertyName] == value : false
-    }
-
-    public changePage(page: number): void
-    {
-        this.filter.page = page;
     }
 }

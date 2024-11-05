@@ -16,7 +16,7 @@ class UpdateRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:65535'],
             'isbn' => ['nullable', 'string', 'max:20'],
             'year_of_production' => 'nullable|numeric|between:0,9999',
-            'package_weight' => 'nullable|numeric|between:0,65535',
+            'package_weight' => 'nullable|numeric|between:0,999999.99',
             'count_per_package' => 'nullable|numeric|between:0,65535',
             'price' => 'required|numeric|between:0,16777215',
             'ccfea' => 'nullable|numeric|between:0,18446744073709551615',

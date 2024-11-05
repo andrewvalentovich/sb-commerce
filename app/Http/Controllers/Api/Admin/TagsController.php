@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Admin\Tag\StoreRequest;
 use App\Http\Requests\Api\Admin\Tag\UpdateRequest;
-use App\Http\Resources\Api\Admin\TagResource;
+use App\Http\Resources\Api\TagResource;
 use App\Models\Tag;
 use App\Repositories\TagRepository;
 use App\Services\CRUD\TagService;

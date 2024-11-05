@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useAuth } from '~/stores/auth'
 import { useMenu } from '~/stores/menu'
+import { useCartStore } from '~/stores/cart'
 import { useDialogAuth, useDialog } from '~/stores/dialog'
 
 const auth = useAuth()
 const menu = useMenu()
+const cartStore = useCartStore()
 const dialogAuth = useDialogAuth()
 
 const menuHeader = menu.get('header')
@@ -15,13 +17,17 @@ useHead({
 })
 </script>
 <template>
-    <nav class="w-full fixed top-0 bg-white border-gray-200 dark:bg-gray-900">
+    <nav class="w-full sticky top-0 bg-white border-gray-200 dark:bg-gray-900 z-10">
         <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+<!--                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />-->
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Slovo-book.ru</span>
             </a>
-            <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <div class="flex items-center gap-3 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <NuxtLink class="relative" :to="{name: 'cart'}">
+                    <svg class="mx-auto mb-1 text-gray-500 w-8 h-8 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                    <span v-if="cartStore.cart && cartStore.cart.length" class="absolute bottom-0 right-0 text-xs w-4 h-4 text-center align-middle text-white bg-red-500 rounded-full">{{ cartStore.cart.length }}</span>
+                </NuxtLink>
                 <dropdown v-if="auth.user">
                     <template #trigger>
                         <div class="flex items-center space-x-3 md:space-x-0">
@@ -80,18 +86,6 @@ useHead({
                     <li v-for="m in menuHeader">
                         <NuxtLink :href="m.link" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">{{ m.text }}</NuxtLink>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>-->
-<!--                    </li>-->
                 </ul>
             </div>
         </div>

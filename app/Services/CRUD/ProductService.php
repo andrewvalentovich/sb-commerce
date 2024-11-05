@@ -2,15 +2,24 @@
 
 namespace App\Services\CRUD;
 
+use App\Models\Media\Traits\ToMedia;
 use App\Models\Product as Model;
 use App\Services\CoreService;
 use Illuminate\Support\Arr;
 
 class ProductService extends CoreService
 {
+    use ToMedia;
+
     public function store($data): Model {
         $tagIds = Arr::pull($data, 'tag_ids');
+        $media = Arr::pull($data, 'media');
+
         $row = $this->model->create($data);
+
+        if ($media) {
+            $this->uploadMedia($row, $media);
+        }
 
         $row->tags()->sync($tagIds);
 
@@ -28,6 +37,8 @@ class ProductService extends CoreService
     public function destroy(Model|int $row) {
         /** @var Model $row */
         $row = $this->getRow($row);
+        $this->deleteAllMedia($row);
+
         $row->tags()->detach();
         $row->delete();
     }

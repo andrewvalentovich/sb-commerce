@@ -7,6 +7,9 @@ interface Dialogs {
     adminCategory: Dialog
     adminTag: Dialog
     adminProduct: Dialog
+    catalogProduct: Dialog
+    cartProduct: Dialog
+    cartOrder: Dialog
 }
 
 interface Dialog {
@@ -43,6 +46,21 @@ export const useDialog = defineStore('dialog', {
                 closed: 0,
             },
             adminProduct: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
+            catalogProduct: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
+            cartProduct: {
+                active: false,
+                opened: 0,
+                closed: 0,
+            },
+            cartOrder: {
                 active: false,
                 opened: 0,
                 closed: 0,

@@ -24,6 +24,9 @@ abstract class BaseMediaModel extends Model implements HasMedia, MediaModel
         // Get the first media from the specified collection.
         /** @var Media $media */
         $media = $this->getFirstMedia($collectionName ?? static::getMediaCollectionName());
+//        $media = $this->getMedia($collectionName ?? static::getMediaCollectionName(), function (Media $media) {
+//            return $media->mime_type !== 'video/mp4';
+//        })->first();
 
         return $media;
     }

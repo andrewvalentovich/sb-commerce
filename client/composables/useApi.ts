@@ -64,7 +64,7 @@ export function useApi<T>(
                 auth.logout()
 
                 const router = useRouter()
-                await router.push({ name: 'login' })
+                await router.push({ name: 'index' })
             } else if (status === 403) {
                 $toast.error('Доступ запрещен!')
             } else if (status === 404) {

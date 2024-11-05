@@ -59,6 +59,7 @@ function formDefaults() {
         sort_order: ''
     }
 }
+
 const initFormData = (body: object) => {
     let formData = new FormData()
 
@@ -139,8 +140,7 @@ watch(() => categoryStore.current, v => {
 })
 
 async function showModal() {
-    if (!editModal.item) await categoryStore.getList()
-
+    await categoryStore.getList()
     freshData()
 }
 

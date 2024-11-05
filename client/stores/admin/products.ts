@@ -6,6 +6,7 @@ export const useAdminProducts = defineStore('adminProducts', {
         items: <models.ProductResults>[],
         laravelData: <models.ProductsResults>[],
         meta: <api.MetApiPaginate | undefined>[],
+        filter: null,
         current: null,
         filterParams: {
             tags: [],
@@ -83,6 +84,11 @@ export const useAdminProducts = defineStore('adminProducts', {
                 this.laravelData = data?.value?.data
                 this.items = data?.value?.data?.data
                 this.meta = data?.value?.data?.meta
+
+                if (this.current) {
+                    const current = this.items.find(el => el.id == this.current.id)
+                    if (current) this.current = current
+                }
             } catch (e) {
                 console.log(e)
             }
@@ -131,6 +137,9 @@ export const useAdminProducts = defineStore('adminProducts', {
             this.loading = false
 
             try {
+                for (var pair of body.entries()) {
+                    console.log(pair[0]+ ', ' + pair[1]);
+                }
                 const {data, error} = await useApi(`admin/products`, {
                     method: 'post',
                     headers: {
@@ -145,8 +154,6 @@ export const useAdminProducts = defineStore('adminProducts', {
                     throw new Error(error.value)
                 }
 
-                console.log('data')
-                console.log(data)
                 if (data.value && data.value.success) {
                     const { $toast } = useNuxtApp()
                     $toast.success(data.value.message)

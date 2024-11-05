@@ -1,9 +1,9 @@
 .admin-wrapper {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
 }
 
 .wrapper {
-    padding-top: 78px;
+    /*padding-top: 78px;*/
 }
 
 .popup {
@@ -225,3 +225,4 @@ select {
     background-size: 1.5em 1.5em;
     padding-right: 2.5rem;
 }
+

@@ -7,9 +7,9 @@ use App\Models\Media\Traits\HasMediaCollections;
 use App\Models\Traits\Filterable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends BaseMediaModel
 {
@@ -47,5 +47,17 @@ class Product extends BaseMediaModel
                 'onUpdate' => true
             ],
         ];
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->format('webp')
+            ->nonQueued();
+
+        $this->addMediaConversion('thumb')
+            ->format('webp')
+            ->performOnCollections('videos')
+            ->nonQueued();
     }
 }

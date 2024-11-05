@@ -65,7 +65,6 @@ class Media extends MediaBase
 
     public function getFullUrl(string $conversionName = ''): string
     {
-        \Log::info('getFullUrl media', ['url' => $this->getUrl($conversionName), 'convName' => $conversionName]);
         return url($this->getUrl($conversionName));
     }
 }

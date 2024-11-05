@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\Admin;
 
 use App\Http\Resources\Api\MediaResource;
+use App\Http\Resources\Api\TagResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

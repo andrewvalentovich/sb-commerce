@@ -14,16 +14,14 @@ class CategoryService extends CoreService
 
     public function store(array $data): Model
     {
-        \Log::info('category service store', ['data' => $data]);
-
-        $last_order = Model::select('sort_order')->orderBy('sort_order', 'desc')->first();
+        $last_order = Model::select('sort_order')->where('parent_id', $data['parent_id'] ?? null)->orderBy('sort_order', 'desc')->first();
         $data['sort_order'] = $last_order ? $last_order->sort_order + 1 : 0;
 
         $row = Model::create($data);
 
         $media = Arr::pull($data, 'media');
         if ($media) {
-            $this->uploadMedia($row, $data['media']);
+            $this->uploadMedia($row, $media);
         }
 
         return $row;
@@ -39,8 +37,8 @@ class CategoryService extends CoreService
     {
         /** @var Model $row */
         $row = $this->getRow($row);
+        $this->deleteAllMedia($row);
 
-        $row->deleteAllMedia();
         $row->delete();
 
         Model::fixTree();

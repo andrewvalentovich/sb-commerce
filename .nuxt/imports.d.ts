@@ -33,10 +33,17 @@ export { isTouchDevice, bodyFixed, bodyNotFixed, createBinaryFromFile, createRea
 export { Filter } from '../client/utils/filter';
 export { isEmpty } from '../client/utils/helpers';
 export { recursiveSearch, expandNested } from '../client/utils/nested';
+export { onlyNumber } from '../client/utils/validator';
+export { useApplication } from '../client/stores/application';
 export { useAuth } from '../client/stores/auth';
+export { useCartStore } from '../client/stores/cart';
+export { useCategories } from '../client/stores/categories';
 export { useDialog, useDialogAuth } from '../client/stores/dialog';
 export { useEnum } from '../client/stores/enums';
 export { useMenu } from '../client/stores/menu';
+export { useProducts } from '../client/stores/products';
+export { useTags } from '../client/stores/tags';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
+export { storages as piniaPluginPersistedstate } from '../node_modules/pinia-plugin-persistedstate/dist/nuxt/runtime/storages';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';

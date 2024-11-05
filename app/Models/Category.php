@@ -41,6 +41,11 @@ class Category extends BaseMediaModel
         return $this->hasMany(Category::class, 'parent_id', 'id')->orderBy('sort_order');
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
     public function sluggable(): array
     {
         return [

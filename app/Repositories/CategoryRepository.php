@@ -23,6 +23,14 @@ class CategoryRepository extends CoreRepository
         return $data->latest()->get();
     }
 
+    public function getHasProductsList() {
+        $data = $this->startConditions()
+            ->whereHas('products')
+            ->withCount('products');
+
+        return $data->latest()->get();
+    }
+
     public function getChildren(Model $row) {
         $data = $this->startConditions()->whereParentId($row->id)->with('children')->get();
 

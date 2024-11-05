@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->comment('Slug (отображение в Url)');
             $table->string('isbn')->nullable()->comment('Код ISBN позиции (продукта)');
             $table->unsignedSmallInteger('year_of_production')->nullable()->comment('Год издания');
-            $table->unsignedSmallInteger('package_weight')->nullable()->comment('Вес пачки в кг, по стандарту наследуется от категории');
+            $table->decimal('package_weight')->nullable()->comment('Вес пачки в кг, по стандарту наследуется от категории');
             $table->unsignedSmallInteger('count_per_package')->nullable()->comment('Количество продукции в пачке, по стандарту наследуется от категории');
             $table->unsignedMediumInteger('price')->comment('Цена');
             $table->unsignedBigInteger('ccfea')->nullable()->comment('Код ТН ВЭД');

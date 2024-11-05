@@ -15,7 +15,7 @@ useHead({
 })
 </script>
 <template>
-    <nav class="w-full fixed t-0 bg-white border-gray-200 dark:bg-gray-900 border border-gray-200" style="z-index: 2">
+    <nav class="w-full sticky t-0 bg-white border-gray-200 dark:bg-gray-900 border border-gray-200" style="z-index: 2">
         <div class="flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />

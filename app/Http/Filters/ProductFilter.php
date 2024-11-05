@@ -15,6 +15,7 @@ class ProductFilter extends AbstractFilter
     const SORT = 'sort';
     const CATEGORIES = 'categories';
     const TAGS = 'tags';
+    const PRICE = 'price';
 
     protected function getCallbacks(): array
     {
@@ -24,6 +25,7 @@ class ProductFilter extends AbstractFilter
             self::SORT => [$this, 'sort'],
             self::CATEGORIES => [$this, 'categories'],
             self::TAGS => [$this, 'tags'],
+            self::PRICE => [$this, 'price'],
         ];
     }
 
@@ -47,6 +49,17 @@ class ProductFilter extends AbstractFilter
         $builder->whereHas('tags', function ($q) use ($value) {
             $q->whereIn('slug', is_array($value) ? $value : [$value]);
         });
+    }
+
+    protected function price(Builder $builder, $value)
+    {
+        if (isset($value['min'])) {
+            $builder->where('price', '>=', (int) $value['min']);
+        }
+
+        if (isset($value['max'])) {
+            $builder->where('price', '<=', (int) $value['max']);
+        }
     }
 
     protected function sort(Builder $builder, $value)

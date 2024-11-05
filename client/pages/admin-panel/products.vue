@@ -20,41 +20,14 @@ const categoryStore = useAdminCategory()
 const tagStore = useAdminTags()
 const dialog = useDialog()
 
-type i_FORM = Pick<models.Product, 'name' | 'email' | 'phone' | 'avatar_url' | 'role' | 'status' | 'password'> & {
-    media: File[] | []
-}
-
-const productFilter = new Filter(productStore, 'filterParams')
-await productFilter.parseUrlQuery()
+productStore.filter = new Filter(productStore.filterParams)
+await productStore.filter.parseUrlQuery()
 
 watch(productStore.filterParams, v => {
-    productFilter.updateUrlQuery(v, 'admin-panel-products')
-    productStore.get(productFilter.getCloneFilterParams())
+    productStore.filter.updateUrlQuery(v, 'admin-panel-products')
+    productStore.get(productStore.filter.getCloneFilterParams())
 }, {
     deep: true
-})
-
-const editModal = reactive<{
-    show: boolean
-    title: string
-    formRef: HTMLFormElement | null
-    form: i_FORM
-    formDefault?: i_FORM
-    item: models.Product | null
-}>({
-    show: false,
-    title: '',
-    formRef: null,
-    form: {
-        name: '',
-        email: '',
-        phone: '',
-        discount_percentage: 0,
-        password: '',
-        role: null,
-        status: null,
-    },
-    item: null
 })
 
 async function fetchParams() {
@@ -62,7 +35,7 @@ async function fetchParams() {
     await categoryStore.getList()
 }
 fetchParams();
-productStore.get(productFilter.getCloneFilterParams());
+productStore.get(productStore.filter.getCloneFilterParams());
 
 async function destroy(item: models.Product) {
     if (! confirm('Действие необратимо!\nВы уверены?')) {
@@ -70,12 +43,12 @@ async function destroy(item: models.Product) {
     }
 
     await productStore.destroy(item.id)
-    await productStore.get(productFilter.getCloneFilterParams());
+    await productStore.get(productStore.filter.getCloneFilterParams());
 }
 
 function showModal(item?: models.Product) {
     dialog.open('adminProduct')
-    editModal.item = item || null
+    productStore.current = item || null
 }
 </script>
 <template>
@@ -117,7 +90,7 @@ function showModal(item?: models.Product) {
                                         <!-- Dropdown menu -->
                                         <ul v-if="tagStore.list.length && !tagStore.loading" class="space-y-2 px-3 pt-3 text-sm">
                                             <li v-for="tag in tagStore.list" class="flex items-center">
-                                                <input @click="productFilter.toggleProperty('tags', tag.slug)" v-model="productStore.filterParams.tags" :id="tag.slug" type="checkbox" :value="tag.slug" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.toggleProperty('tags', tag.slug)" v-model="productStore.filterParams.tags" :id="tag.slug" type="checkbox" :value="tag.slug" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="tag.slug" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ tag.name }}
@@ -125,7 +98,7 @@ function showModal(item?: models.Product) {
                                             </li>
                                         </ul>
                                         <p v-else class="ml-2 p-2 text-sm font-medium">Нет тэгов</p>
-                                        <button v-if="tagStore.list.length && !tagStore.loading" @click="productFilter.setProperty('tags', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
+                                        <button v-if="tagStore.list.length && !tagStore.loading" @click="productStore.filter.setProperty('tags', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
                                     </template>
                                 </Dropdown>
                                 <Dropdown :closeContentOnClick="false">
@@ -141,7 +114,7 @@ function showModal(item?: models.Product) {
                                         <!-- Dropdown menu -->
                                         <ul v-if="categoryStore.list.length && !categoryStore.loading" class="space-y-2 px-3 pt-3 text-sm">
                                             <li v-for="category in categoryStore.list" class="flex items-center">
-                                                <input @click="productFilter.toggleProperty('categories', category.slug)" v-model="productStore.filterParams.categories" :id="category.slug" type="checkbox" :value="category.slug" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.toggleProperty('categories', category.slug)" v-model="productStore.filterParams.categories" :id="category.slug" type="checkbox" :value="category.slug" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="category.slug" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ category.name }}
@@ -149,7 +122,7 @@ function showModal(item?: models.Product) {
                                             </li>
                                         </ul>
                                         <p v-else class="ml-2 p-2 text-sm font-medium">Нет категорий</p>
-                                        <button v-if="categoryStore.list.length && !categoryStore.loading" @click="productFilter.setProperty('categories', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
+                                        <button v-if="categoryStore.list.length && !categoryStore.loading" @click="productStore.filter.setProperty('categories', [])" class="px-1 py-2 ml-2 text-sm text-blue-700 hover:text-blue-500 font-medium">Очистить</button>
                                     </template>
                                 </Dropdown>
                                 <Dropdown>
@@ -165,14 +138,14 @@ function showModal(item?: models.Product) {
                                         <!-- Dropdown menu -->
                                         <ul class="space-y-2 px-3 pt-3 text-sm">
                                             <li class="flex items-center">
-                                                <input @click="productFilter.setProperty('sort', '')" v-model="productStore.filterParams.sort" id="no-sort" type="radio" :value="''" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.setProperty('sort', '')" v-model="productStore.filterParams.sort" id="no-sort" type="radio" :value="''" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label for="no-sort" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     Нет сортировки
                                                 </label>
                                             </li>
                                             <li v-for="sort in productStore.sortParams" class="flex items-center">
-                                                <input @click="productFilter.setProperty('sort', sort.value)" v-model="productStore.filterParams.sort" :id="sort.value" type="radio" :value="sort.value" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.setProperty('sort', sort.value)" v-model="productStore.filterParams.sort" :id="sort.value" type="radio" :value="sort.value" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 
                                                 <label :for="sort.value" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {{ sort.name }}
@@ -200,7 +173,7 @@ function showModal(item?: models.Product) {
                                                 </label>
                                             </li>
                                             <li class="flex items-center">
-                                                <input @click="productFilter.setProperty('per_page', null)" v-model="productStore.filterParams.per_page" id="per-page-all" type="radio" :value="null" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.setProperty('per_page', null)" v-model="productStore.filterParams.per_page" id="per-page-all" type="radio" :value="null" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 <label for="per-page-all" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     Все
                                                 </label>
@@ -296,13 +269,13 @@ function showModal(item?: models.Product) {
             </div>
         </div>
     </div>
-    <div class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
+    <div class="items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
         <TailwindPagination
             class="mt-4"
             :data="productStore.laravelData"
-            @pagination-change-page="productStore.changePage"
+            @pagination-change-page="(page) => { productStore.filterParams.page = page }"
         />
     </div>
 
-   <dialogsAdminProduct v-model="editModal" @fetchPageData="productStore.get(productFilter.getCloneFilterParams())"/>
+   <dialogsAdminProduct @fetchPageData="productStore.get(productStore.filter.getCloneFilterParams())"/>
 </template>
