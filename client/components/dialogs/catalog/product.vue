@@ -18,8 +18,6 @@ watch(() => dialog.dialogs.catalogProduct.active, v => {
     }
 })
 
-showModal()
-
 function closeModal() {
     current.value = null
     productStore.filterParams.active_dialog_slug = ''
@@ -30,7 +28,7 @@ async function showModal() {
     if (productStore.filterParams.active_dialog_slug) {
         const res = await productStore.show(productStore.filterParams.active_dialog_slug)
 
-        if (res.success) {
+        if (res && res.success) {
             current.value = res.data
         } else {
             $toast.info(res.message)
@@ -38,6 +36,12 @@ async function showModal() {
         }
     }
 }
+
+onMounted(() => {
+    nextTick(async () => {
+        await showModal()
+    })
+})
 </script>
 
 <template>
@@ -74,9 +78,9 @@ async function showModal() {
                                 Артикул: {{ current.isbn }}
                             </p>
                             <p class="text-2xl mt-3 font-bold text-blue-700">
-                                {{ current.discount_price ?? current.price }} ₽
-                                <span v-if="current.discount_price" class="pl-1 text-base font-medium text-gray-500 line-through">
-                                    {{ current.price }} ₽
+                                {{ current.price }} ₽
+                                <span v-if="current.price != current.old_price" class="pl-1 text-base font-medium text-gray-500 line-through">
+                                    {{ current.old_price }} ₽
                                 </span>
                             </p>
                             <p class="text-sm mt-5 font-normal text-gray-900 dark:text-white">

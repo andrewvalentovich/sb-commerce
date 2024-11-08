@@ -69,9 +69,9 @@ async function showModal() {
                                 Артикул: {{ current.isbn }}
                             </p>
                             <p class="text-2xl mt-3 font-bold text-blue-700">
-                                {{ current.discount_price ?? current.price }} ₽
-                                <span v-if="current.discount_price" class="pl-1 text-base font-medium text-gray-500 line-through">
-                                    {{ current.price }} ₽
+                                {{ current.price }} ₽
+                                <span v-if="current.old_price != current.price" class="pl-1 text-base font-medium text-gray-500 line-through">
+                                    {{ current.old_price }} ₽
                                 </span>
                             </p>
                             <p class="text-sm mt-5 font-normal text-gray-900 dark:text-white">

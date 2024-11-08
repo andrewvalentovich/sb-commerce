@@ -126,9 +126,9 @@ export const useProducts = defineStore('products', {
 
         async getCart(): Promise<models.ProductsResults>
         {
-            this.loading = true
-
-            try {
+            // this.loading = true
+            //
+            // try {
                 const {data, error} = await useApi('products/cart', {
                     params: {
                         'ids[]': useCartStore().getItemIds()
@@ -154,12 +154,14 @@ export const useProducts = defineStore('products', {
                             }
                         }
                     }
+
+                    // cartStore.updateCartInLocalStorage()
                 }
-            } catch (e) {
-                console.log(e)
-            } finally {
-                this.loading = false
-            }
+            // } catch (e) {
+            //     console.log(e)
+            // } finally {
+            //     this.loading = false
+            // }
         },
 
         findInCardById(id: number): Promise<models.Product>
@@ -169,9 +171,18 @@ export const useProducts = defineStore('products', {
 
         async show(param: string|number): Promise<models.ProductResults>
         {
-            const { data, error} = await useApi(`products/${param}`)
+            try {
+                const { data, error } = await useApi(`products/${param}`)
 
-            return error.value ? error.value.data : data.value
+                if (error.value) {
+                    // @ts-ignore
+                    throw new Error(error.value)
+                }
+
+                return data.value
+            } catch (e) {
+                console.log(e)
+            }
         },
     }
 })

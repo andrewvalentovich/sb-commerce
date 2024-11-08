@@ -20,9 +20,9 @@ const product = ref<models.Product>(props.item)
         <div class="mt-1">
             <div @click="emit('showModal', product)" class="cursor-pointer">
                 <p class="text-lg font-bold text-blue-700 dark:text-gray-400">
-                    {{ product.discount_price ?? product.price }} ₽
-                    <span v-if="product.discount_price" class="pl-1 text-sm font-medium text-gray-500 line-through">
-                        {{ product.price }} ₽
+                    {{ product.price }} ₽
+                    <span v-if="product.old_price != product.price" class="pl-1 text-sm font-medium text-gray-500 line-through">
+                        {{ product.old_price }} ₽
                     </span>
                 </p>
             </div>

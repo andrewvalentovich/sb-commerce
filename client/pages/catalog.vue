@@ -17,10 +17,6 @@ const dialog = useDialog()
 productStore.filter = new Filter(productStore.filterParams)
 await productStore.filter.parseUrlQuery()
 
-if (productStore.filterParams.active_dialog_slug) {
-    dialog.open('catalogProduct')
-}
-
 async function fetchParams() {
     await tagStore.getList()
     await categoryStore.getList()
@@ -36,6 +32,10 @@ watch(productStore.filterParams, v => {
 }, {
     deep: true
 })
+
+if (productStore.filterParams.active_dialog_slug) {
+    dialog.open('catalogProduct')
+}
 </script>
 <template>
     <Breadcrumbs class="col-span-12 mb-6" />

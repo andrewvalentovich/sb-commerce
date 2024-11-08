@@ -25,6 +25,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \DB::listen(function($query) {
+            \Log::info(
+                $query->sql,
+                [
+                    'bindings' => $query->bindings,
+                    'time' => $query->time
+                ]
+            );
+        });
+
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
         Sanctum::getAccessTokenFromRequestUsing(function(Request $request) {
             $token = $request->bearerToken();

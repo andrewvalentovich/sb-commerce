@@ -66,6 +66,7 @@ declare global {
             package_weight: number|null
             count_per_package: number|null
             price: number
+            old_price: number
             ccfea: number|null
             category_id: number|null
             category: CategoryResults|null

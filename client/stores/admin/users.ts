@@ -6,6 +6,7 @@ export const useAdminUsers = defineStore('adminUsers', {
         items: <models.User>[],
         laravelData: <models.UsersResults>[],
         meta: <api.MetApiPaginate | undefined>[],
+        filter: null,
         current: null,
         filterParams: {
             roles: [],

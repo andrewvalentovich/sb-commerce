@@ -14,9 +14,9 @@ const price = computed({
     }
 })
 
-const discount_price = computed({
+const old_price = computed({
     get() {
-        return cartStore.cart.reduce((a, b) => { return a + b.discount_price * b.quantity }, 0)
+        return cartStore.cart.reduce((a, b) => { return a + b.old_price * b.quantity }, 0)
     }
 })
 </script>
@@ -34,8 +34,8 @@ const discount_price = computed({
             </div>
             <div class="flex justify-between pt-4">
                 <p class="text-lg pb-4 text-gray-900 font-medium">Итог</p>
-                <span v-if="discount_price" class="text-lg text-gray-900 font-medium">
-                    {{ discount_price }} ₽
+                <span v-if="price != old_price" class="text-lg text-gray-900 font-medium">
+                    {{ old_price }} ₽
                     <span class="pl-1 text-sm font-medium text-gray-500 line-through">{{ price }} ₽</span>
                 </span>
                 <span v-else class="text-lg text-gray-900 font-medium">{{ price }} ₽</span>

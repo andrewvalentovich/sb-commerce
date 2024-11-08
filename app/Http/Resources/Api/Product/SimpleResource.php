@@ -11,6 +11,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class SimpleResource extends JsonResource
 {
+    protected $discountPercentage;
+
+    public function setDiscountPercentage($value){
+        $this->discountPercentage = $value;
+        return $this;
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -18,8 +25,6 @@ class SimpleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = auth()->guard('sanctum')->user();
-
         $data = [
             'id' => $this->id,
             'name' => $this->name,
@@ -29,10 +34,8 @@ class SimpleResource extends JsonResource
             'year_of_production' => $this->year_of_production,
             'package_weight' => $this->package_weight,
             'count_per_package' => $this->count_per_package,
-            'price' => $this->price,
-            'discount_price' => $user && $user->hasRole('client')
-                ? number_format((1 - $user->discount_percentage / 100) * $this->price, 2, '.', ' ')
-                : null,
+            'price' => number_format((1 - $this->discountPercentage / 100) * $this->price, 2, '.', ' '),
+            'old_price' => number_format($this->price, 2, '.', ' '),
             'ccfea' => $this->ccfea,
             'category_id' => $this->category_id,
         ];
