@@ -14,7 +14,7 @@ const categoryStore = useCategories()
 const tagStore = useTags()
 const dialog = useDialog()
 
-productStore.filter = new Filter(productStore.filterParams)
+productStore.filter = new Filter(productStore.filterParams, useRouter())
 await productStore.filter.parseUrlQuery()
 
 async function fetchParams() {

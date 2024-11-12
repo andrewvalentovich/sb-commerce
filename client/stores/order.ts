@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-export const useApplication = defineStore('application', {
+export const useOrder = defineStore('order', {
     state: () => ({
         loading: false
     }),
@@ -14,7 +14,7 @@ export const useApplication = defineStore('application', {
             this.loading = true
 
             try {
-                const { data, error } = await useApi(`application`, {
+                const { data, error } = await useApi(`orders`, {
                     method: 'post',
                     body
                 })
@@ -24,9 +24,15 @@ export const useApplication = defineStore('application', {
                     throw new Error(error.value)
                 }
 
+                console.log('data')
+                console.log(data.value)
+
                 if (data.value?.success) {
                     const { $toast } = useNuxtApp()
                     $toast.success(data.value.message)
+
+                    const cartStore = useCartStore()
+                    cartStore.cart = [];
 
                     useDialog().close(`${closeDialog}`)
                 }
@@ -43,6 +49,6 @@ export const useApplication = defineStore('application', {
 
 // @ts-ignore
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useApplication, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(useOrder, import.meta.hot))
 }
 

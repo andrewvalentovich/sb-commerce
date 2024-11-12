@@ -96,42 +96,49 @@ export const useProducts = defineStore('products', {
 
         async get(params: object): Promise<models.ProductsResults>
         {
-            this.loading = true
-
             try {
+                this.loading = true
+
                 const {data, error} = await useApi('products', {
                     params
                 })
 
                 if (error.value) {
-                    this.loading = false
                     // @ts-ignore
                     throw new Error(error.value)
                 }
 
-                this.laravelData = data?.value?.data
-                this.items = data?.value?.data?.data
-                this.meta = data?.value?.data?.meta
+                if (data.value && data.value.success && data.value.data.data) {
+                    this.laravelData = data?.value?.data
 
-                if (this.current) {
-                    const current = this.items.find(el => el.id == this.current.id)
-                    if (current) this.current = current
+                    const nextIndex = this.laravelData.meta.links.findIndex(el => el.label == '&laquo; Назад')
+                    await this.laravelData.meta.links.splice(nextIndex, 1)
+                    const prevIndex = this.laravelData.meta.links.findIndex(el => el.label == 'Вперёд &raquo;')
+                    await this.laravelData.meta.links.splice(prevIndex, 1)
+                    console.log(this.laravelData.meta.links)
+
+                    this.meta = data?.value?.data?.meta
+                    this.items = data?.value?.data?.data
+                    console.log('this.items')
+                    console.log(this.items)
                 }
             } catch (e) {
                 console.log(e)
+            } finally {
+                this.loading = false
             }
-
-            this.loading = false
         },
 
         async getCart(): Promise<models.ProductsResults>
         {
-            // this.loading = true
-            //
-            // try {
+            this.loading = true
+
+            try {
+                const cartStore = useCartStore()
+
                 const {data, error} = await useApi('products/cart', {
                     params: {
-                        'ids[]': useCartStore().getItemIds()
+                        'ids[]': cartStore.getItemIds()
                     }
                 })
 
@@ -141,8 +148,6 @@ export const useProducts = defineStore('products', {
                 }
 
                 if (data.value.success && data.value.data) {
-                    const cartStore = useCartStore()
-
                     for (const index in cartStore.cart) {
                         const item = data.value.data.find(el => el.id == cartStore.cart[index].id)
 
@@ -154,14 +159,12 @@ export const useProducts = defineStore('products', {
                             }
                         }
                     }
-
-                    // cartStore.updateCartInLocalStorage()
                 }
-            // } catch (e) {
-            //     console.log(e)
-            // } finally {
-            //     this.loading = false
-            // }
+            } catch (e) {
+                console.log(e)
+            } finally {
+                this.loading = false
+            }
         },
 
         findInCardById(id: number): Promise<models.Product>

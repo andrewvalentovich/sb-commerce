@@ -33,7 +33,8 @@ const product = computed({
                 <div @click="emit('showModal', product)" class="cursor-pointer">
                     <p class="text-md font-middle text-gray-900 dark:text-white">{{ product.name }}</p>
                 </div>
-                <p class="mb-3 font-normal text-md text-gray-700 dark:text-gray-400">{{ product.description }}</p>
+                <p class="mt-3 font-normal text-md text-gray-700 dark:text-gray-400">Вес пачки: {{ product.package_weight }}</p>
+                <p class="mb-3 font-normal text-md text-gray-700 dark:text-gray-400">Количество в пачке: {{ product.count_per_package }}</p>
                 <p class="mb-4 font-normal text-md text-gray-500 dark:text-gray-400">{{ product.isbn }}</p>
                 <cartButton v-model="product" />
             </div>

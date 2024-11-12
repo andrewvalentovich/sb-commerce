@@ -9,6 +9,14 @@ class ProductRepository extends CoreRepository
 {
     public function getForPage(array $filterParams = null)
     {
+        if (
+            !isset($filterParams['per_page'])
+            ||
+            (!is_numeric($filterParams['per_page']) && $filterParams['per_page'] != 'all')
+        ) {
+            $filterParams['per_page'] = 20;
+        }
+
         if (!isset($filterParams['sort'])) {
             $filterParams['sort'] = 'id-desc';
         }
@@ -18,7 +26,11 @@ class ProductRepository extends CoreRepository
             ->with(['category', 'tags', 'media'])
             ->filter($filter);
 
-        return $query->paginate($this->numItemsPerPage($filterParams['per_page'] ?? $query->count()));
+        return $query->paginate($this->numItemsPerPage(
+            $filterParams['per_page'] == 'all'
+                ? $query->count()
+                : $filterParams['per_page']
+        ));
     }
 
     public function getForCart(array|null $productIds)

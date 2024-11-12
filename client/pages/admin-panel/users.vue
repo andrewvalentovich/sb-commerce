@@ -24,7 +24,7 @@ type i_FORM = Pick<models.User, 'name' | 'email' | 'phone' | 'avatar_url' | 'rol
     avatar: File | null
 }
 
-userStore.filter = new Filter(userStore.filterParams)
+userStore.filter = new Filter(userStore.filterParams, useRouter())
 await userStore.filter.parseUrlQuery()
 
 watch(userStore.filterParams, v => {

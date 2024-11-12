@@ -41,7 +41,7 @@ class ProductsController extends ApiController
     {
         $validated = $request->validate([
             'ids' => 'required|array',
-            'ids.*' => 'nullable|numeric'
+            'ids.*' => 'sometimes|numeric'
         ]);
 
         $data = $this->repository->getForCart($validated['ids']);

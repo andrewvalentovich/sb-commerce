@@ -46,6 +46,6 @@ abstract class ApiController extends Controller
 
     public function createdOk(string $message): JsonResponse
     {
-        return response()->json(['message' => $message], 201);
+        return response()->json(['success' => true, 'message' => $message], 201);
     }
 }

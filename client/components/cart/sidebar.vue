@@ -19,6 +19,12 @@ const old_price = computed({
         return cartStore.cart.reduce((a, b) => { return a + b.old_price * b.quantity }, 0)
     }
 })
+
+const weight = computed({
+    get() {
+        return cartStore.cart.reduce((a, b) => { return a + parseInt(b.package_weight) * b.quantity }, 0)
+    }
+})
 </script>
 <template>
     <div class="p-8 flex flex-col bg-slate-50">
@@ -30,7 +36,7 @@ const old_price = computed({
             </div>
             <div class="flex justify-between py-4 border-b border-gray-200">
                 <span class="text-base text-gray-500 font-medium">Вес заказа</span>
-                <span class="text-base text-gray-500 font-medium">487 кг</span>
+                <span class="text-base text-gray-500 font-medium">{{ weight }} кг</span>
             </div>
             <div class="flex justify-between pt-4">
                 <p class="text-lg pb-4 text-gray-900 font-medium">Итог</p>
@@ -43,7 +49,7 @@ const old_price = computed({
 
             <uiButtonPrimary
                 class="mt-4"
-                :disabled="productStore.loading"
+                :disabled="productStore.loading || !cartStore.cart.length"
                 @click="dialog.open('cartOrder')"
             >
                 <span class="text-lg">Заказать</span>

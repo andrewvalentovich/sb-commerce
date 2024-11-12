@@ -27,7 +27,7 @@ const product = ref<models.Product>(props.item)
                 </p>
             </div>
             <p class="text-md font-middle text-gray-900 dark:text-white">{{ product.name }}</p>
-<!--            <p class="mb-3 font-normal text-md text-gray-700 dark:text-gray-400">{{ product.description }}</p>-->
+            <p class="mb-3 font-normal text-md text-gray-700 dark:text-gray-400">{{ product.description }}</p>
             <p class="mb-4 font-normal text-md text-gray-500 dark:text-gray-400">{{ product.isbn }}</p>
             <cartButton v-model="product" />
         </div>

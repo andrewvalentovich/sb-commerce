@@ -8,7 +8,7 @@ class FilterRequest extends FormRequest
 {
     public function rules(): array {
         return [
-            'per_page' => 'nullable|numeric',
+            'per_page' => ['nullable'],
             'search' => 'nullable|string|max:255',
             'sort' => 'nullable|string|max:255',
             'price' => ['sometimes', 'array'],

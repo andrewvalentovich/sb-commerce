@@ -6,6 +6,7 @@ use App\Enums\Users\StatusesEnum;
 use App\Models\User as Model;
 use App\Services\CoreService;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends CoreService
 {
@@ -26,6 +27,7 @@ class UserService extends CoreService
 
         return $row;
     }
+
     public function update(Model|int $row, $data): Model {
         /** @var Model $row */
         $row = $this->getRow($row);
@@ -36,6 +38,10 @@ class UserService extends CoreService
             if ($data['email'] !== $row->email) $data['email_verified_at'] = null;
         }
 
+        if ($data['phone']) {
+            if ($data['phone'] !== $row->phone) $data['phone_verified_at'] = null;
+        }
+
         $row->update($data);
 
         if ($role) {
@@ -44,6 +50,15 @@ class UserService extends CoreService
         }
 
         return $row;
+    }
+
+    public function updatePassword(Model|int $row, $data): void {
+        /** @var Model $row */
+        $row = $this->getRow($row);
+
+        $row->update([
+            'password' => Hash::make($data['password'])
+        ]);
     }
 
     public function destroy(Model|int $row) {

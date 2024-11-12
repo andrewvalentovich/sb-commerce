@@ -26,15 +26,16 @@ async function changePage(page: number): void
                 v-for="product in productStore.items" :item="product"
             />
         </div>
-        <div class="flex justify-center w-full p-4 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <Pagination
-                class="mt-4"
-                :data="productStore.laravelData"
-                @changePage="changePage"
-            />
-        </div>
 
         <p v-show="!productStore.loading && !productStore.items.length">Не найдено товаров</p>
         <p v-if="productStore.loading">Загрузка...</p>
+
+        <div class="flex justify-center w-full p-4 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <Pagination
+                class="mt-4"
+                v-model="productStore.laravelData"
+                @changePage="changePage"
+            />
+        </div>
     </div>
 </template>

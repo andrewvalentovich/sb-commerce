@@ -31,6 +31,8 @@ class Resource extends JsonResource
             'slug' => $this->slug,
             'isbn' => $this->isbn,
             'year_of_production' => $this->year_of_production,
+            'package_weight' => $this->package_weight,
+            'count_per_package' => $this->count_per_package,
             'price' => number_format((1 - $this->discountPercentage / 100) * $this->price, 2, '.', ' '),
             'old_price' => number_format($this->price, 2, '.', ' '),
             'category_id' => $this->category_id,

@@ -2,9 +2,11 @@ import _ from 'lodash';
 
 export class Filter {
     private filter = ref<object>(null);
+    private router = ref<object>(null);
 
-    constructor(filter: object) {
+    constructor(filter: object, router: object) {
         this.filter = filter
+        this.router = router
     }
 
     public getCloneFilterParams(): object
@@ -15,8 +17,7 @@ export class Filter {
     public updateUrlQuery(filterParams: object, routeName: string, routeParams: object = {}): void
     {
         const query = this.parseFilterParams(filterParams)
-
-        useRouter().replace({ name: routeName, params: routeParams, query: query })
+        this.router.replace({ name: routeName, params: routeParams, query: query })
     }
 
     public parseFilterParams(filter: object): object

@@ -8,31 +8,22 @@ export const useCartStore = defineStore('cart', () => {
     const cart = ref<Object>(useLocalStorage('cart', []))
     console.log('cart')
     console.log(cart)
-    // const cart = computed({
-    //     get() {
-    //         return useLocalStorage('cart', [])
-    //     }
-    // })
-
-    // function updateCartInLocalStorage() {
-    //     useLocalStorage('cart', cart.value)
-    // }
 
     function getItemIds(): object
     {
-        console.log('getItemIds')
-        return cart.value.map((item) => { return item.id })
+        // console.log('getItemIds')
+        return cart.value.map((item) => { return item.id ?? null }).filter(el => !!el)
     }
 
     function getItemIndex(item: models.Product): number
     {
-        console.log('getItemIndex')
+        // console.log('getItemIndex')
         return cart.value ? cart.value.findIndex(el => el.id == item.id) : -1;
     }
 
     function getItem(item: models.Product): object
     {
-        console.log('getItem')
+        // console.log('getItem')
         const index = getItemIndex(item)
         return index !== -1 ? cart.value[index] : null
     }
@@ -53,18 +44,20 @@ export const useCartStore = defineStore('cart', () => {
 
     function add(item: models.Product, quantity: number = 1): void
     {
-        cart.value.push({ ...item, quantity: quantity })
-        useLocalStorage('cart', cart.value)
+        console.log('add')
+        if (item) {
+            cart.value.push({ ...item, quantity: quantity })
+        }
     }
 
     function remove(item: models.Product): void
     {
+        console.log('remove')
         const index = getItemIndex(item)
 
         if (index != -1) {
             cart.value.splice(index, 1)
         }
-        useLocalStorage('cart', cart.value)
     }
 
     function exist(item: models.Product): boolean

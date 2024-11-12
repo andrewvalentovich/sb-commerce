@@ -20,7 +20,7 @@ const categoryStore = useAdminCategory()
 const tagStore = useAdminTags()
 const dialog = useDialog()
 
-productStore.filter = new Filter(productStore.filterParams)
+productStore.filter = new Filter(productStore.filterParams, useRouter())
 await productStore.filter.parseUrlQuery()
 
 watch(productStore.filterParams, v => {
@@ -157,7 +157,7 @@ function showModal(item?: models.Product) {
                                 <Dropdown :closeContentOnClick="false">
                                     <template #trigger>
                                         <button class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                                            На странице - {{ productStore.filterParams.per_page ?? 'Все' }}
+                                            На странице - {{ productStore.filterParams.per_page == 'all' ? 'Все' : productStore.filterParams.per_page }}
                                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                             </svg>
@@ -173,7 +173,7 @@ function showModal(item?: models.Product) {
                                                 </label>
                                             </li>
                                             <li class="flex items-center">
-                                                <input @click="productStore.filter.setProperty('per_page', null)" v-model="productStore.filterParams.per_page" id="per-page-all" type="radio" :value="null" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input @click="productStore.filter.setProperty('per_page', 'all')" v-model="productStore.filterParams.per_page" id="per-page-all" type="radio" :value="'all'" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 <label for="per-page-all" class="pl-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     Все
                                                 </label>

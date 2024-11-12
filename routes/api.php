@@ -86,8 +86,15 @@ Route::group([
     // Tags resource routes...
     Route::get('tags/list', [\App\Http\Controllers\Api\TagsController::class, 'list']);
 
-    // Tags resource routes...
+    // Products resource routes...
     Route::get('products', [\App\Http\Controllers\Api\ProductsController::class, 'index']);
     Route::get('products/cart', [\App\Http\Controllers\Api\ProductsController::class, 'cart']);
     Route::get('products/{param}', [\App\Http\Controllers\Api\ProductsController::class, 'show']);
+
+    // Orders resource routes...
+    Route::post('orders', [\App\Http\Controllers\Api\OrdersController::class, 'store']);
+
+    // Profile routes...
+    Route::put('profile/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
+    Route::post('profile/update/password', [\App\Http\Controllers\Api\ProfileController::class, 'updatePassword']);
 });
